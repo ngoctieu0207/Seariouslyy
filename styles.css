@@ -208,7 +208,7 @@ html, body{
 .footer-text{
   width: 48%;
   height: auto;
-  top: 95%;   /* was 264% relative to the old broken reference — re-tune by eye */
+  top: 90%;  
   left: 24.5%;
   transform: translateX(-50%);
   font-size: clamp(17px, 1.2vw, 21px);
