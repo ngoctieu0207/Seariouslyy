@@ -9,22 +9,16 @@
 </head>
 <body>
 
+  <!-- everything sits inside #page so the overlay can be positioned
+       absolutely on top of the generative background canvas -->
   <div id="page">
 
+    <!-- generative background canvas gets injected here by p5 -->
     <div id="bg-sketch" aria-hidden="true"></div>
-     
-    <div class="background-overlay">
-      
-      <img class="sky-layer" src="assets/images/sky.png" alt="sky" />
-      
-      <img class="sand-layer" src="assets/images/sand.png" alt="sand" />
-      
-      <img class="sea-layer" src="assets/images/sea.png" alt="sea" />
-   </div>
 
-    </div>
-
-    <div class="text-overlay">
+    <!-- static hero overlay: header meta text + the three artworks,
+         positioned to match the sky band exactly -->
+    <div class="hero-overlay">
 
       <p class="meta meta-left">
         COMM2754_Digital Media Specialisation 1_26t2<br />
@@ -45,10 +39,22 @@
       <img class="title-art" src="assets/images/title.png" alt="Life Below Water" />
 
       <img class="quote-art" src="assets/images/quote.png" alt="There is no such thing as 'away'. When we throw anything away it must go somewhere. - Annie Leonard" />
-     
-      <img class="cta-title" src="assets/images/cta.png" alt="Pick up litter before it reaches the ocean."/>
+      
 
-      <p class="paragraph">
+    </div>
+     </div>
+
+  <!-- CTA section: call-to-action artwork and supporting paragraph,
+       positioned over the lower sea band -->
+  <div class="cta-section">
+
+    <img
+      class="cta-title"
+      src="assets/images/cta.png"
+      alt="Pick up litter before it reaches the ocean."
+    />
+
+    <p class="paragraph">
       Annie Leonard's quote, "There is no such thing as 'away.' When we throw
       anything away it must go somewhere," reminds us that waste we discard on
       land often ends up in the ocean, harming marine life and ecosystems,
@@ -56,9 +62,11 @@
       Achieving this goal means recognizing that our trash doesn't disappear;
       it becomes someone else's or the ocean's problem. Stop throwing waste
       into the ocean, and start taking responsibility for where it truly goes.
-      </p>
+    </p>
 
-      <p class="footer-text">
+  </div>
+  <div class="footer">
+    <p class="footer-text">
       A project by Tieu Dinh Ngoc.<br />
       Nga 5 chuong cho members: Trinh Tuan Hung, Ho Kieu Phuong, Tran Tung Phuong, Pham Hoai An.<br />
       Onlinelad (2 July 2026) There Is No Such Thing as Away: Annie Leonard on the Responsibility We Cannot Escape, 
