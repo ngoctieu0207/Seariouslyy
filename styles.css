@@ -129,23 +129,72 @@ html, body{
   z-index: 5;
 }
 
-.cta-title{
-  position: absolute;
+/* ------------------------------------------------------------------
+   lower-overlay — covers everything below the sky band (sand + sea)
+   using the SAME trick as .hero-overlay: width:100%, height:0, and
+   a percentage margin/padding-top. CSS percentages on margin-top and
+   padding-top ALWAYS resolve against the containing block's WIDTH
+   (this is true even for "top"/"bottom" margin, a common CSS
+   surprise) — so this box's position and height are both 100%
+   width-driven, exactly like hero-overlay. No dependency on the
+   canvas element's JS-computed height, so no more flash/lag/wrong
+   position on slow loads or different screens.
 
+   margin-top MUST match hero-overlay's own padding-top (61.822%) so
+   this box picks up exactly where hero-overlay's box ends, with no
+   gap or overlap.
+
+   padding-top locks THIS box's own height to the aspect ratio of
+   "everything below the sky band" in your artwork — i.e.
+   (pixel height of the sand+sea portion of background.png / pixel
+   width of background.png) * 100. Replace the placeholder value
+   below with your real number, then re-tune the top:% values on
+   .cta-title / .paragraph / .footer-text below (now 0-100%, relative
+   to THIS box, not the old broken 200%+ values). Once tuned, this
+   holds correctly on every device — no more per-screen retuning.
+------------------------------------------------------------------- */
+.lower-overlay{
+  position: absolute;   /* đổi từ relative → absolute */
+  top: 25%;                /* thêm dòng này */
+  left: 0;                /* thêm dòng này */
+  width: 100%;
+  height: 0;
+  margin-top: 61.822%;
+  padding-top: 50%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.lower-overlay *{
+  position: absolute;
+  margin: 0;
+  font-family: "Tw Cen MT Bold", sans-serif;
+}
+
+/* .cta-section and .footer are pure organizational wrappers — cancel
+   the position:absolute picked up from the wildcard rule above so
+   they DON'T become the containing block for their own children.
+   Otherwise .cta-title/.paragraph/.footer-text would size their
+   top:% against these (collapsed, height-0) wrapper divs instead of
+   against .lower-overlay. */
+.cta-section,
+.footer{
+  position: static;
+}
+
+.cta-title{
   width: 50%;
   height: auto;
-  top: 230%;
+  top: 50%;   /* was 227% relative to the old broken reference — re-tune by eye */
   left: 28%;
   transform: translateX(-50%);
 }
 
 .paragraph{
-  position: absolute;
-
   width: 34%;
-  top: 222%;
+  top: 45%;    /* was 219% relative to the old broken reference — re-tune by eye */
   left: 62%;
-  font-family: "Tw Cen MT Bold", sans-serif;
   font-size: clamp(18px, 1.2vw, 22px);
   line-height: 1.45;
   text-align: justify;
@@ -157,13 +206,11 @@ html, body{
 }
 
 .footer-text{
-  position: absolute;
   width: 48%;
   height: auto;
-  top: 269%;
+  top: 95%;   /* was 264% relative to the old broken reference — re-tune by eye */
   left: 24.5%;
   transform: translateX(-50%);
-  font-family: "Tw Cen MT Bold", sans-serif;
   font-size: clamp(17px, 1.2vw, 21px);
   line-height: 1.5;
 }
