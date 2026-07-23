@@ -1,6 +1,6 @@
 :root{
   --ink: #0e2a3d;
-  --meta: #215e95; /* header subtitle text colour*/
+  --meta: #215e95; /* header / subtitle text colour, sampled from the mock */
 }
 
 @font-face{
@@ -20,7 +20,7 @@ html, body{
   background: #0e2a3d;
 }
 
-/* page wraps the canvas + the overlay so the overlay can be
+/* #page wraps the canvas + the overlay so the overlay can be
    positioned absolutely relative to it */
 #page{
   position: relative;
@@ -32,73 +32,39 @@ html, body{
 #bg-sketch{
   width: 100%;
   line-height: 0; /* kill the inline-canvas whitespace gap */
-  position: relative;
 }
 #bg-sketch canvas{
-   display:block;
-    position:absolute;
-    top:0;
-    left:0;
-    z-index:1;
-}
-
-.background-overlay{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-  padding-top: 61.822%; /* locks the overlay to the sky band's aspect ratio */
-  pointer-events: none;
-  z-index: 0;
-}
-
-.sand-layer{
-  position: absolute;
-  top: 5%;
-  left: -0.1%;
-  width: 100%;
-  height: auto;
-}
-
-.sky-layer{
-  position: absolute;
-  top: -80%;
-  left: -0.1%;
-  width: 100%;
-  height: auto;
-}
-
-.sea-layer{
-  position: absolute;
-  top: 75%;
-  left: -0.1%;
-  width: 100%;
-  height: auto;
+  display: block;
 }
 
 /* ------------------------------------------------------------------
-   Text overlay — contains all static interface elements
-   (header, title, quote, CTA, paragraph and footer).
+   Hero overlay — header meta text + the three static artworks
+   (SDG tag, title, quote). Sits on top of the sky band only.
 
-   The wrapper is positioned over the canvas and keeps the same
-   responsive coordinate system as the artwork, allowing every element
-   positioned with percentage-based top/left values to scale
-   consistently across different screen sizes.
+   The wrapper keeps the exact aspect ratio of the sky band (measured
+   from the design mock, 812 x 502) and is width-locked to 100%, so
+   every child positioned with top/left percentages lands in the same
+   relative spot the mock shows, at any page width.
 ------------------------------------------------------------------- */
-.text-overlay{
+.hero-overlay{
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 0;
-  padding-top: 61.822%; /* 502 / 812 — locks the overlay to the sky band's aspect ratio */
+  /* 502 / 812 — locks the overlay to the sky band's aspect ratio.
+     Previously this was sky.png's own pixel dimensions. Now that
+     sky/sand/sea are one merged background.png (see script.js's
+     SKY_BAND_FRAC), recalc this as
+     (background.png height * SKY_BAND_FRAC) / background.png width
+     if the new artwork's sky proportion differs. */
+  padding-top: 61.822%;
   pointer-events: none;
   z-index: 2;
   overflow: visible;
 }
 
-.text-overlay *{
+.hero-overlay *{
   position: absolute;
   margin: 0;
   font-family: "Tw Cen MT Bold", sans-serif;
@@ -154,13 +120,21 @@ html, body{
   height: auto;
   transform: translateX(-50%);
 }
+.cta-section{
+  width: 88%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  z-index: 5;
+}
 
 .cta-title{
   position: absolute;
 
   width: 50%;
   height: auto;
-  top: 185.5%;
+  top: 230%;
   left: 28%;
   transform: translateX(-50%);
 }
@@ -169,7 +143,7 @@ html, body{
   position: absolute;
 
   width: 34%;
-  top: 180%;
+  top: 222%;
   left: 62%;
   font-family: "Tw Cen MT Bold", sans-serif;
   font-size: clamp(18px, 1.2vw, 22px);
@@ -186,12 +160,10 @@ html, body{
   position: absolute;
   width: 48%;
   height: auto;
-  top: 224%;
+  top: 269%;
   left: 24.5%;
   transform: translateX(-50%);
   font-family: "Tw Cen MT Bold", sans-serif;
   font-size: clamp(17px, 1.2vw, 21px);
   line-height: 1.5;
-  color: var(--ink);
 }
-
