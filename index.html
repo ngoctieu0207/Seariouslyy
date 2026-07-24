@@ -8,16 +8,10 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <!-- everything sits inside #page so the overlay can be positioned
-       absolutely on top of the generative background canvas -->
   <div id="page">
 
-    <!-- generative background canvas gets injected here by p5 -->
     <div id="bg-sketch" aria-hidden="true"></div>
 
-    <!-- static hero overlay: header meta text + the three artworks,
-         positioned to match the sky band exactly -->
     <div class="hero-overlay">
 
       <p class="meta meta-left">
@@ -43,14 +37,6 @@
 
     </div>
 
-    <!-- lower-overlay: same width-locked aspect-ratio trick as
-         hero-overlay above, covering everything below the sky band
-         (sand + sea). margin-top pushes it down to start exactly
-         where hero-overlay's box ends; padding-top locks ITS OWN
-         height too. Both percentages resolve against the box's
-         WIDTH (per CSS spec, margin/padding percentages always do),
-         so this whole block is 100% width-driven, just like
-         hero-overlay — no dependency on the canvas/JS height at all. -->
     <div class="lower-overlay">
 
       <div class="cta-section">
@@ -85,6 +71,6 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
-  <script src="script.js"></script>
+  <script src="sketch.js"></script>
 </body>
 </html>
